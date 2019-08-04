@@ -1,0 +1,43 @@
+{
+  "builders":
+  [
+    {
+      "type": "qemu",
+      "iso_url": "http://cloud-images.ubuntu.com/bionic/20190801.1/bionic-server-cloudimg-amd64.img",
+      "iso_checksum": "abb12943439230047761aeff5b8a4debf21080c22b8e35e8a22d42407da7846a",
+      "iso_checksum_type": "sha256",
+      "disk_image": true,
+      "shutdown_command": "sudo -S shutdown -P now",
+      "cpus": 2,
+      "memory": 512,
+      "format": "qcow2",
+      "accelerator": "kvm",
+      "http_directory": "http",
+      "ssh_username": "ubuntu",
+      "ssh_password": "ubuntu",
+      "ssh_timeout": "20m",
+      "vm_name": "ubuntu",
+      "name": "hashistack",
+      "use_default_display": true,
+      "headless": true,
+      "qemuargs": [
+        ["-fda", "packercloud.img"],
+        ["-serial", "mon:stdio"]
+      ],
+      "net_device": "virtio-net",
+      "disk_interface": "virtio"
+    }
+  ],
+  "provisioners":
+  [
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/updategrub.sh",
+        "scripts/ubuntu_hashistack.sh",
+        "scripts/hashistack.sh",
+        "scripts/cleanup.sh"
+      ]
+    }
+  ]
+}
