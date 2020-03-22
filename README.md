@@ -19,10 +19,6 @@ Future work ideas
 -----------------
 
 * Add variables to packer files to set
-  * Cloud image version
-  * Cloud image SHA
   * Tools version inside image
-
-* Versioning, with data inside resulting image
 
 * InSpec or similar tests

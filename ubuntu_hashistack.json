@@ -1,11 +1,14 @@
 {
+  "variables": {
+    "ubuntu_release": "eoan"
+  },
   "builders":
   [
     {
       "type": "qemu",
-      "iso_url": "http://cloud-images.ubuntu.com/bionic/20190801.1/bionic-server-cloudimg-amd64.img",
-      "iso_checksum": "abb12943439230047761aeff5b8a4debf21080c22b8e35e8a22d42407da7846a",
-      "iso_checksum_type": "sha256",
+      "iso_url": "https://cloud-images.ubuntu.com/{{user `ubuntu_release`}}/current/{{user `ubuntu_release`}}-server-cloudimg-amd64.img",
+      "iso_checksum_url": "https://cloud-images.ubuntu.com/releases/{{user `ubuntu_release`}}/release/SHA256SUMS",
+      "iso_checksum_type": "none",
       "disk_image": true,
       "shutdown_command": "sudo -S shutdown -P now",
       "cpus": 2,
@@ -26,6 +29,11 @@
       ],
       "net_device": "virtio-net",
       "disk_interface": "virtio"
+    },
+    {
+      "type": "vagrant",
+      "source_path": "ubuntu/bionic64",
+      "provider": "libvirt"
     }
   ],
   "provisioners":
