@@ -1,18 +1,18 @@
 CLOUDIMAGES=packercloud.img testcloud.img
 
-all: output-basic/ubuntu output-hashistack/ubuntu
+all: output-basic/ubuntu #output-hashistack/ubuntu
 
 .PHONY: basic
 basic: output-basic/ubuntu
 output-basic/ubuntu: packercloud.img
 	@echo Running packer build $@
-	PACKER_LOG=1 packer build ubuntu_basic.json
+	PACKER_LOG=1 packer build ubuntu.json
 
-.PHONY: hashistack
-hashistack: output-hashistack/ubuntu
-output-hashistack/ubuntu: packercloud.img
-	@echo Running packer build $@
-	PACKER_LOG=1 packer build ubuntu_hashistack.json
+# .PHONY: hashistack
+# hashistack: output-hashistack/ubuntu
+# output-hashistack/ubuntu: packercloud.img
+# 	@echo Running packer build $@
+# 	PACKER_LOG=1 packer build ubuntu_hashistack.json
 
 $(CLOUDIMAGES):
 	@echo Creating $@

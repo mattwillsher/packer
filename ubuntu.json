@@ -6,6 +6,8 @@
   [
     {
       "type": "qemu",
+      "name": "ubuntu-{{user `ubuntu_release`}}-{{timestamp}}",
+      "vm_name": "packer-{{build_name}}.img",
       "iso_url": "https://cloud-images.ubuntu.com/{{user `ubuntu_release`}}/current/{{user `ubuntu_release`}}-server-cloudimg-amd64.img",
       "iso_checksum_url": "https://cloud-images.ubuntu.com/releases/{{user `ubuntu_release`}}/release/SHA256SUMS",
       "iso_checksum_type": "none",
@@ -19,8 +21,6 @@
       "ssh_username": "ubuntu",
       "ssh_password": "ubuntu",
       "ssh_timeout": "20m",
-      "vm_name": "ubuntu",
-      "name": "hashistack",
       "use_default_display": true,
       "headless": true,
       "qemuargs": [
@@ -29,11 +29,6 @@
       ],
       "net_device": "virtio-net",
       "disk_interface": "virtio"
-    },
-    {
-      "type": "vagrant",
-      "source_path": "ubuntu/bionic64",
-      "provider": "libvirt"
     }
   ],
   "provisioners":
@@ -42,10 +37,9 @@
       "type": "shell",
       "scripts": [
         "scripts/updategrub.sh",
-        "scripts/ubuntu_hashistack.sh",
-        "scripts/hashistack.sh",
         "scripts/cleanup.sh"
       ]
     }
-  ]
+  ],
+  "post-processors": ["vagrant"]
 }
